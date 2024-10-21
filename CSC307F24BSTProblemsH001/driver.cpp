@@ -1,5 +1,6 @@
 #pragma once
 #include "BinarySearchTree.h"
+using std::cin;
 
 int main()
 {
@@ -14,4 +15,18 @@ int main()
 
 	my_bst.PrintTree();
 	cout << "\n";
+
+	while (true)
+	{
+		int num;
+
+		cout << "\n";
+		cout << "Give me a number: ";
+		cin >> num;
+
+		if (my_bst.Search(num) == true)
+			cout << "The number \"" << num << "\" is in the tree.";
+		else
+			cout << "The number \"" << num << "\" is NOT in the tree.";
+	}
 }

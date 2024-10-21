@@ -27,6 +27,14 @@ public:
 		}
 	}
 
+	bool Search(int data)
+	{
+		if (root == nullptr)
+			return false;
+		else
+			return Search(data, root);
+	}
+
 	void PrintTree()
 	{
 		PrintTree(root);
@@ -79,6 +87,21 @@ private:
 				return true;
 
 			}
+		}
+	}
+
+	bool Search(int data, TreeNode* node)
+	{
+		if (node == nullptr)
+			return false;
+		else
+		{
+			if (node->data == data)
+				return true;
+			else if (node->data > data)
+				return Search(data, node->leftChild);
+			else
+				return Search(data, node->rightChild);
 		}
 	}
 
