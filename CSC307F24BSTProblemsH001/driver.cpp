@@ -12,4 +12,6 @@ int main()
 	my_bst.Insert(75);
 	my_bst.Insert(60);
 
+	my_bst.PrintTree();
+	cout << "\n";
 }
