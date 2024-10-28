@@ -35,6 +35,14 @@ public:
 			return Search(data, root);
 	}
 
+	bool Remove(int data)
+	{
+		if (root == nullptr)
+			return false;
+		else
+			return RemoveSearch(data, root);
+	}
+
 	void PrintTree()
 	{
 		PrintTree(root);
@@ -102,6 +110,109 @@ private:
 				return Search(data, node->leftChild);
 			else
 				return Search(data, node->rightChild);
+		}
+	}
+
+	bool RemoveSearch(int data, TreeNode* node)
+	{
+		if (node == nullptr)
+			return false;
+		else
+		{
+			if (node->data == data)
+			{
+				//delete node here
+				RemoveNode(node);
+				count--;
+				return true;
+			}
+			else if (node->data > data)
+				return RemoveSearch(data, node->leftChild);
+			else
+				return RemoveSearch(data, node->rightChild);
+		}
+	}
+
+	void RemoveNode(TreeNode* node)
+	{
+		if (node->leftChild == nullptr && node->rightChild == nullptr)
+		{
+			//type 1 deletion on a leaf node.
+			if (node == root)
+			{
+				delete root;
+				root = nullptr;
+				return;
+			}
+			else
+			{
+				if (node == node->parent->leftChild)
+					node->parent->leftChild = nullptr;
+				else
+					node->parent->rightChild = nullptr;
+
+				delete node;
+				return;
+
+			}
+		}
+		else if(node->leftChild != nullptr && node->rightChild == nullptr)
+		{
+			if (node == root)
+			{
+				root = node->leftChild;
+				root->parent = nullptr;
+			}
+			//type 2 deletion with a left child.
+			else if (node == node->parent->leftChild)
+			{
+				node->parent->leftChild = node->leftChild;
+				node->leftChild->parent = node->parent;
+			}
+			else
+			{
+				node->parent->rightChild = node->leftChild;
+				node->leftChild->parent = node->parent;
+			}
+
+			delete node;
+			return;
+		}
+		else if (node->leftChild == nullptr && node->rightChild != nullptr)
+		{
+			//type 2 deletion with a right child.
+			if (node == root)
+			{
+				root = node->rightChild;
+				root->parent = nullptr;
+			}
+			//type 2 deletion with a right child.
+			else if (node == node->parent->leftChild)
+			{
+				node->parent->leftChild = node->rightChild;
+				node->rightChild->parent = node->parent;
+			}
+			else
+			{
+				node->parent->rightChild = node->rightChild;
+				node->rightChild->parent = node->parent;
+			}
+
+			delete node;
+			return;
+		}
+		else // type 3 deletion.
+		{
+			//perform type 3 deletion
+			TreeNode* temp = node->rightChild;
+
+			while (temp->leftChild != nullptr)
+				temp = temp->leftChild;
+
+			node->data = temp->data;
+
+			RemoveNode(temp);
+			return;
 		}
 	}
 
