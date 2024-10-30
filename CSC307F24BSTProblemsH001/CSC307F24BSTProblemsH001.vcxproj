@@ -133,6 +133,9 @@
   <ItemGroup>
     <ClCompile Include="driver.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="my_bst.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

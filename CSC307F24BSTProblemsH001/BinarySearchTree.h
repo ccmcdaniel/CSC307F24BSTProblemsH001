@@ -2,6 +2,15 @@
 
 #include "TreeNode.h"
 #include <iostream>
+#include <string>
+#include <fstream>
+#include <vector>
+
+using std::stoi;
+using std::vector;
+using std::string;
+using std::ofstream;
+using std::ifstream;
 using std::cout;
 
 class BinarySearchTree
@@ -48,6 +57,56 @@ public:
 		PrintTree(root);
 	}
 
+	void SaveToFile(string filepath)
+	{
+		ofstream file;
+		file.open(filepath);
+
+		SaveToFile(file, root);
+
+		file.close();
+	}
+
+	string LoadFromFile(string filepath, bool append = false)
+	{
+		try 
+		{
+			ifstream file;
+			file.open(filepath);
+
+			//Read the data from the list.
+			vector<int> read_data;
+
+			string line;
+			while (getline(file, line))
+			{
+				int data = stoi(line);
+				read_data.push_back(data);
+			}
+
+
+			//Clear the Tree
+			if(append == false)
+				ClearTree();
+
+			for (int i = 0; i < read_data.size(); i++)
+				Insert(read_data[i]);
+
+			file.close();
+
+			return "";
+		}
+		catch (int e)
+		{
+			return "Error:  An error occurred while attempting to read the file.";
+		}
+
+	}
+
+	void ClearTree()
+	{
+		ClearTree(root);
+	}
 
 private:
 	bool Insert(int data, TreeNode* node)
@@ -226,4 +285,29 @@ private:
 		PrintTree(node->rightChild);
 	}
 
+	void SaveToFile(ofstream& file, TreeNode* node)
+	{
+		if (node == nullptr)
+			return;
+
+		else
+		{
+			file << node->data << "\n";
+			SaveToFile(file, node->leftChild);
+			SaveToFile(file, node->rightChild);
+		}
+	}
+
+	void ClearTree(TreeNode* node)
+	{
+		if (node == nullptr)
+			return;
+
+		else
+		{
+			ClearTree(node->leftChild);
+			ClearTree(node->rightChild);
+			RemoveNode(node);
+		}
+	}
 };

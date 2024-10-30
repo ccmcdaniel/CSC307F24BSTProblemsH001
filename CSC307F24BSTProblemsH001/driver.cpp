@@ -16,9 +16,19 @@ int main()
 	my_bst.Insert(98);
 	my_bst.Insert(97);
 	my_bst.Insert(18);
-
+	
+	cout << "Before Saving to File: ";
 	my_bst.PrintTree();
 	cout << "\n";
+
+	my_bst.SaveToFile("my_bst.txt");
+	my_bst.LoadFromFile("my_bst.txt");
+
+	cout << "After Loading from File: ";
+	my_bst.PrintTree();
+	cout << "\n";
+
+
 
 	/*while (true)
 	{
@@ -34,23 +44,23 @@ int main()
 			cout << "The number \"" << num << "\" is NOT in the tree.";
 	}*/
 
-	my_bst.Remove(60);
-	my_bst.PrintTree();
-	cout << "\n";
+	//my_bst.Remove(60);
+	//my_bst.PrintTree();
+	//cout << "\n";
 
-	my_bst.Remove(15);
-	my_bst.PrintTree();
-	cout << "\n";
+	//my_bst.Remove(15);
+	//my_bst.PrintTree();
+	//cout << "\n";
 
-	my_bst.Remove(20);
-	my_bst.PrintTree();
-	cout << "\n";
+	//my_bst.Remove(20);
+	//my_bst.PrintTree();
+	//cout << "\n";
 
-	my_bst.Remove(90);
-	my_bst.PrintTree();
-	cout << "\n";
+	//my_bst.Remove(90);
+	//my_bst.PrintTree();
+	//cout << "\n";
 
-	my_bst.Remove(45);
-	my_bst.PrintTree();
-	cout << "\n";
+	//my_bst.Remove(45);
+	//my_bst.PrintTree();
+	//cout << "\n";
 }
